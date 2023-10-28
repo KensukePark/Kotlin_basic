@@ -43,46 +43,35 @@ class RegistActivity : AppCompatActivity() {
                 }
             }
             if(!isExistBlank && isPWSame){
-
-                // 회원가입 성공 토스트 메세지 띄우기
                 Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-
-                // 유저가 입력한 id, pw를 쉐어드에 저장한다.
                 val sharedPreference = getSharedPreferences("file name", Context.MODE_PRIVATE)
-                val editor = sharedPreference.edit()
-                editor.putString("id", id)
-                editor.putString("pw", pw)
-                editor.apply()
+                val prefs = sharedPreference.edit()
+                prefs.putString("id", id)
+                prefs.putString("pw", pw)
+                prefs.apply()
 
-                // 로그인 화면으로 이동
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, TextEditActivity::class.java)
                 startActivity(intent)
-
             }
             else{
-
-                // 상태에 따라 다른 다이얼로그 띄워주기
-                if(isExistBlank){   // 작성 안한 항목이 있을 경우
-                    dialog("blank")
+                if(isExistBlank){
+                    dialog("empty")
                 }
-                else if(!isPWSame){ // 입력한 비밀번호가 다를 경우
-                    dialog("not same")
+                else if(!isPWSame){
+                    dialog("inequal")
                 }
             }
         }
     }
-
     fun dialog(type: String){
         val dialog = AlertDialog.Builder(this)
-
-        if(type.equals("blank")){
+        if(type.equals("empty")){
             dialog.setTitle("회원가입 실패")
-            dialog.setMessage("입력란을 모두 작성해주세요")
+            dialog.setMessage("아이디와 패스워드를 모두 입력하세요.")
         }
-
-        else if(type.equals("not same")){
+        else if(type.equals("inequal")){
             dialog.setTitle("회원가입 실패")
-            dialog.setMessage("비밀번호가 다릅니다")
+            dialog.setMessage("비밀번호가 일치하지 않습니다.")
         }
 
         val dialog_listener = object: DialogInterface.OnClickListener{
