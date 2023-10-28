@@ -8,11 +8,11 @@
 
 
     <EditText
-        android:id="@+id/email_input"
+        android:id="@+id/login_id"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
-        android:hint="이메일을 입력하세요."
+        android:hint="아이디를 입력하세요."
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/password_input"
+        android:id="@+id/login_password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -28,7 +28,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_input" />
+        app:layout_constraintTop_toBottomOf="@+id/login_id" />
 
     <Button
         android:id="@+id/btn_login"
@@ -38,7 +38,7 @@
         android:text="  로그인  "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+        app:layout_constraintTop_toBottomOf="@+id/login_password" />
 
 
     <Button
