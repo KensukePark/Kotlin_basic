@@ -18,53 +18,56 @@ class RegistActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regist)
+        click_regist()
     }
 
     fun click_regist() {
         val btn_regist = findViewById<Button>(R.id.btn_register)
-        Log.d(TAG, "회원가입 버튼 클릭")
-        val edit_id = findViewById<EditText>(R.id.regist_id)
-        val id = edit_id.text.toString()
+        btn_regist.setOnClickListener {
+            Log.d(TAG, "회원가입 버튼 클릭")
+            val edit_id = findViewById<EditText>(R.id.regist_id)
+            val id = edit_id.text.toString()
 
-        val edit_pw = findViewById<EditText>(R.id.regist_pass)
-        val pw = edit_id.text.toString()
+            val edit_pw = findViewById<EditText>(R.id.regist_pass)
+            val pw = edit_pw.text.toString()
 
-        val edit_pwre = findViewById<EditText>(R.id.regist_pass_re)
-        val pwre = edit_id.text.toString()
+            val edit_pwre = findViewById<EditText>(R.id.regist_pass_re)
+            val pwre = edit_pwre.text.toString()
 
-        if(id.isEmpty() || pw.isEmpty() || pwre.isEmpty()){
-            isExistBlank = true
-        }
-        else{
-            if(pw == pwre){
-                isPWSame = true
+            if(id.isEmpty() || pw.isEmpty() || pwre.isEmpty()){
+                isExistBlank = true
             }
-        }
-        if(!isExistBlank && isPWSame){
-
-            // 회원가입 성공 토스트 메세지 띄우기
-            Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-
-            // 유저가 입력한 id, pw를 쉐어드에 저장한다.
-            val sharedPreference = getSharedPreferences("file name", Context.MODE_PRIVATE)
-            val editor = sharedPreference.edit()
-            editor.putString("id", id)
-            editor.putString("pw", pw)
-            editor.apply()
-
-            // 로그인 화면으로 이동
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-
-        }
-        else{
-
-            // 상태에 따라 다른 다이얼로그 띄워주기
-            if(isExistBlank){   // 작성 안한 항목이 있을 경우
-                dialog("blank")
+            else{
+                if(pw == pwre){
+                    isPWSame = true
+                }
             }
-            else if(!isPWSame){ // 입력한 비밀번호가 다를 경우
-                dialog("not same")
+            if(!isExistBlank && isPWSame){
+
+                // 회원가입 성공 토스트 메세지 띄우기
+                Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
+
+                // 유저가 입력한 id, pw를 쉐어드에 저장한다.
+                val sharedPreference = getSharedPreferences("file name", Context.MODE_PRIVATE)
+                val editor = sharedPreference.edit()
+                editor.putString("id", id)
+                editor.putString("pw", pw)
+                editor.apply()
+
+                // 로그인 화면으로 이동
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+
+            }
+            else{
+
+                // 상태에 따라 다른 다이얼로그 띄워주기
+                if(isExistBlank){   // 작성 안한 항목이 있을 경우
+                    dialog("blank")
+                }
+                else if(!isPWSame){ // 입력한 비밀번호가 다를 경우
+                    dialog("not same")
+                }
             }
         }
     }
