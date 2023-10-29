@@ -9,11 +9,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
 class TextEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val prefs = getSharedPreferences("file name", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putString("now_id", "")
+        editor.apply()
         setContentView(R.layout.activity_text_edit)
         BtnClick()
     }
@@ -33,12 +38,16 @@ class TextEditActivity : AppCompatActivity() {
             var pw = Edit_login_pw.text.toString()
 
             val prefs = getSharedPreferences("file name", Context.MODE_PRIVATE)
-            val id_prefs = prefs.getString("id", "")
-            val pw_prefs = prefs.getString("pw", "")
+            val id_prefs = prefs.getString(id, "")
 
-            if(id == id_prefs && pw == pw_prefs){
-                // 로그인 성공 다이얼로그 보여주기
-                dialog("success")
+            if(prefs.contains(id) && id_prefs == pw){
+                Toast.makeText(this, "Welocme ${id}", Toast.LENGTH_SHORT).show()
+                val prefs = getSharedPreferences("file name", Context.MODE_PRIVATE)
+                val editor = prefs.edit()
+                editor.putString("now_id", id)
+                editor.apply()
+                val intent = Intent(this, UserPageActivity::class.java)
+                startActivity(intent)
             }
             else{
                 // 로그인 실패 다이얼로그 보여주기
@@ -50,6 +59,7 @@ class TextEditActivity : AppCompatActivity() {
     fun dialog(type: String){
         var dialog = AlertDialog.Builder(this)
         if(type.equals("success")){
+            Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
             dialog.setTitle("로그인 성공")
             dialog.setMessage("로그인 성공!")
         }
