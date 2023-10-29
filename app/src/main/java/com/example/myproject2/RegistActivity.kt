@@ -46,8 +46,7 @@ class RegistActivity : AppCompatActivity() {
                 Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
                 val sharedPreference = getSharedPreferences("file name", Context.MODE_PRIVATE)
                 val prefs = sharedPreference.edit()
-                prefs.putString("id", id)
-                prefs.putString("pw", pw)
+                prefs.putString(id, pw)
                 prefs.apply()
 
                 val intent = Intent(this, TextEditActivity::class.java)
