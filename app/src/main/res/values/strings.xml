@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">MyProject2</string>
+    <string name="app_title">Weather Forecast App</string>
+    <string name="app_title2">계산기</string>
+
+    <string name="weather_url">http://api.openweathermap.org/</string>
+    <string name="weather_app_id">abfa4af0f068cc9370136ff207da94ab</string>
+    <string name="weather_seoul_id">1835848</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
