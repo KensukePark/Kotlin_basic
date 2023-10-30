@@ -18,12 +18,15 @@ class UserAdapter(val context: Context, val UserList:ArrayList<User>): BaseAdapt
         val profile = binding.imageIcon
         val name = binding.textId
         val title = binding.textTitle
+        val date = binding.textDate
 
         val user = UserList[position]
 
         profile.setImageResource(user.profile)
         name.text = user.name
         title.text = user.title
+        date.text = user.datetime
+
 
         return mBinding!!.root
     }
