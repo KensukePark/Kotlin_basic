@@ -19,5 +19,5 @@ ide.text.editor.with.preview.show.floating.toolbar=false <br>
 # Preview
 Trading Stuff App using sharedpreference 
 <p align="left">
-<img src="project1.png" width="216" height="528"/>
+<img src="project1.png" width="324" height="666"/>
 </p>
