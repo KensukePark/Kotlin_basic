@@ -13,6 +13,8 @@ import com.example.myproject2.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONArray
 import org.w3c.dom.Text
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class UserPageActivity : AppCompatActivity() {
 
@@ -30,7 +32,7 @@ class UserPageActivity : AppCompatActivity() {
         var id : String = now_id.toString()
         val text_main = findViewById<TextView>(R.id.user_welcome)
         text_main.text = "${now_id}'s Page"
-        if (!prefs.contains("${now_id}_list")) {
+        if (!prefs.contains("item_list")) {
             val editor = prefs.edit()
             var temp_arr : ArrayList<String> = ArrayList()
             temp_arr.add(0, "hellow")
@@ -39,20 +41,20 @@ class UserPageActivity : AppCompatActivity() {
                 temp_jsonArr.put(i)
             }
             var temp_result = temp_jsonArr.toString()
-            editor.putString("${now_id}_list", temp_result)
+            editor.putString("item_list", temp_result)
             editor.apply()
             val text_two = findViewById<TextView>(R.id.textView_two)
             text_two.text = "비어있음"
         }
         else {
-            val getData = prefs.getString("${now_id}_list", "")
+            val getData = prefs.getString("item_list", "")
 
             var ArrJson = JSONArray(getData)
             var resultArr : ArrayList<String> = ArrayList()
-            if (ArrJson.length() != 0) {
-                for(i in 0 until  ArrJson.length()){
+            if (ArrJson.length() > 1) {
+                for(i in 1 until  ArrJson.length() ){
                     resultArr.add(ArrJson.optString(i))
-                    UserList.add(User(R.drawable.chunsik, id, resultArr[i]))
+                    UserList.add(User(R.drawable.chunsik, resultArr[i-1].split("@")[0], resultArr[i-1].split("@")[1], resultArr[i-1].split("@")[2]))
                 }
                 val text_two = findViewById<TextView>(R.id.textView_two)
                 text_two.text = "${resultArr.size}"
@@ -82,7 +84,7 @@ class UserPageActivity : AppCompatActivity() {
             val prefs = getSharedPreferences("file name", Context.MODE_PRIVATE)
             val now_id = prefs.getString("now_id", "")
             val editor = prefs.edit()
-            val getData = prefs.getString("${now_id}_list", "")
+            val getData = prefs.getString("item_list", "")
             var ArrJson = JSONArray(getData)
             var resultArr : ArrayList<String> = ArrayList()
             if (ArrJson.length() != 0) {
@@ -90,15 +92,26 @@ class UserPageActivity : AppCompatActivity() {
                     resultArr.add(ArrJson.optString(i))
                 }
             }
-            resultArr.add(resultArr.size.toString())
+            val length = 10
+            val randomTitle = getRandomString(length)
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            val current = LocalDateTime.now().format(formatter)
+            resultArr.add(now_id + '@' + randomTitle + '@' + current.toString())
             var jsonArr_save = JSONArray()
             for(i in resultArr) jsonArr_save.put(i)
             var result = jsonArr_save.toString()
-            editor.putString("${now_id}_list", result)
+            editor.putString("item_list", result)
             editor.apply()
             //val intent = Intent(this, UserPageActivity::class.java)
             //startActivity(intent)
             defualtSet()
         }
+    }
+
+    fun getRandomString(length: Int) : String {
+        val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
+        return (1..length)
+            .map { charset.random() }
+            .joinToString("")
     }
 }
