@@ -17,6 +17,7 @@ class TextEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val prefs = getSharedPreferences("file name", Context.MODE_PRIVATE)
         val editor = prefs.edit()
+        //editor.clear()
         editor.putString("now_id", "")
         editor.apply()
         setContentView(R.layout.activity_text_edit)
