@@ -31,7 +31,7 @@ class UserPageActivity : AppCompatActivity() {
         val now_id = prefs.getString("now_id", "")
         var id : String = now_id.toString()
         val text_main = findViewById<TextView>(R.id.user_welcome)
-        text_main.text = "${now_id}'s Page"
+        text_main.text = "Home"
         if (!prefs.contains("item_list")) {
             val editor = prefs.edit()
             var temp_arr : ArrayList<String> = ArrayList()
@@ -52,9 +52,11 @@ class UserPageActivity : AppCompatActivity() {
             var ArrJson = JSONArray(getData)
             var resultArr : ArrayList<String> = ArrayList()
             if (ArrJson.length() > 1) {
-                for(i in 1 until  ArrJson.length() ){
+                var idx = 0
+                for(i in ArrJson.length()-1 downTo   1 ){
                     resultArr.add(ArrJson.optString(i))
-                    UserList.add(User(R.drawable.chunsik, resultArr[i-1].split("@")[0], resultArr[i-1].split("@")[1], resultArr[i-1].split("@")[2]))
+                    UserList.add(User(R.drawable.chunsik, resultArr[idx].split("@")[0], resultArr[idx].split("@")[1], resultArr[idx].split("@")[2]))
+                    idx++
                 }
                 val text_two = findViewById<TextView>(R.id.textView_two)
                 text_two.text = "${resultArr.size}"
