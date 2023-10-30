@@ -29,6 +29,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, FlagmentActivity::class.java)
             startActivity(intent)
         }
+        val btn_thr = findViewById<Button>(R.id.btn_to_Cal)
+        btn_thr.setOnClickListener {
+            val intent = Intent(this, CalculActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }
