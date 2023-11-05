@@ -83,30 +83,32 @@ class UserPageActivity : AppCompatActivity() {
     fun btn_click() {
         val btn_float = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         btn_float.setOnClickListener {
-            val prefs = getSharedPreferences("file name", Context.MODE_PRIVATE)
-            val now_id = prefs.getString("now_id", "")
-            val editor = prefs.edit()
-            val getData = prefs.getString("item_list", "")
-            var ArrJson = JSONArray(getData)
-            var resultArr : ArrayList<String> = ArrayList()
-            if (ArrJson.length() != 0) {
-                for(i in 0 until  ArrJson.length()){
-                    resultArr.add(ArrJson.optString(i))
-                }
-            }
-            val length = 10
-            val randomTitle = getRandomString(length)
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-            val current = LocalDateTime.now().format(formatter)
-            resultArr.add(now_id + '@' + randomTitle + '@' + current.toString())
-            var jsonArr_save = JSONArray()
-            for(i in resultArr) jsonArr_save.put(i)
-            var result = jsonArr_save.toString()
-            editor.putString("item_list", result)
-            editor.apply()
-            //val intent = Intent(this, UserPageActivity::class.java)
-            //startActivity(intent)
-            defualtSet()
+            var intent = Intent(this, AddingActivit::class.java)
+            startActivity(intent)
+//            val prefs = getSharedPreferences("file name", Context.MODE_PRIVATE)
+//            val now_id = prefs.getString("now_id", "")
+//            val editor = prefs.edit()
+//            val getData = prefs.getString("item_list", "")
+//            var ArrJson = JSONArray(getData)
+//            var resultArr : ArrayList<String> = ArrayList()
+//            if (ArrJson.length() != 0) {
+//                for(i in 0 until  ArrJson.length()){
+//                    resultArr.add(ArrJson.optString(i))
+//                }
+//            }
+//            val length = 10
+//            val randomTitle = getRandomString(length)
+//            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+//            val current = LocalDateTime.now().format(formatter)
+//            resultArr.add(now_id + '@' + randomTitle + '@' + current.toString())
+//            var jsonArr_save = JSONArray()
+//            for(i in resultArr) jsonArr_save.put(i)
+//            var result = jsonArr_save.toString()
+//            editor.putString("item_list", result)
+//            editor.apply()
+//            //val intent = Intent(this, UserPageActivity::class.java)
+//            //startActivity(intent)
+//            defualtSet()
         }
     }
 
